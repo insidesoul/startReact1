@@ -5,16 +5,33 @@ class App extends Component {
         count: 0,
     };
 
-    handleClick = () => {
+    increment = () => {
         this.setState({count: this.state.count + 1});
     }
 
-render() {
-        return (
-            <div className="App">
-                Hello from React
+    decrement = () => {
+        this.setState({count: this.state.count - 1});
+    }
 
-                <button onClick={this.handleClick}>{this.state.count}</button>
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount')
+    }
+
+    render() {
+        console.log('render', this.state.count)
+        return (
+            <div className="App" style={{margin: 'auto', width: '300px'}}>
+                <button onClick={this.increment}>+</button>
+                <span style={{margin: '0 0.75rem', display: 'inline-block'}}>{this.state.count}</span>
+                <button onClick={this.decrement}>-</button>
             </div>
         );
     }
