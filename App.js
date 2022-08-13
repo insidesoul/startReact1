@@ -16,11 +16,16 @@ class App extends Component {
     }
 
     reset = () => {
-        this.setState({count: 0})
+        this.setState({count: 0, start: true})
+        clearInterval(this.timerId)
     }
 
     componentDidUpdate() {
         localStorage.setItem('count', this.state.count)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId)
     }
 
     render() {
