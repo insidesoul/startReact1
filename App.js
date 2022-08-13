@@ -2,36 +2,34 @@ import React, {Component} from "react"
 
 class App extends Component {
     state = {
-        count: 0,
+        count: +localStorage.getItem('count') || 0,
+        start: true,
     };
 
-    increment = () => {
-        this.setState({count: this.state.count + 1});
+    startStop = () => {
+        this.state.start ?  this.setState({start: false}) : this.setState({start: true})
+
+        this.state.start ?
+            (this.timerId = setInterval(() => {
+            this.setState({count: this.state.count + 1});}, 1000)) :
+            clearInterval(this.timerId)
     }
 
-    decrement = () => {
-        this.setState({count: this.state.count - 1});
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount');
+    reset = () => {
+        this.setState({count: 0})
     }
 
     componentDidUpdate() {
-        console.log('componentDidUpdate');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount')
+        localStorage.setItem('count', this.state.count)
     }
 
     render() {
-        console.log('render', this.state.count)
         return (
-            <div className="App" style={{margin: 'auto', width: '300px'}}>
-                <button onClick={this.increment}>+</button>
-                <span style={{margin: '0 0.75rem', display: 'inline-block'}}>{this.state.count}</span>
-                <button onClick={this.decrement}>-</button>
+            <div className="App" style={{margin: 'auto', width: '300px', textAlign: "center"}}>
+                <h1>React Timer</h1>
+                <h3>{this.state.count}</h3>
+                <button onClick={this.startStop}>{this.state.start ? 'Start' : 'Stop'}</button>
+                <button onClick={this.reset}>Reset</button>
             </div>
         );
     }
