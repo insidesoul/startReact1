@@ -1,5 +1,5 @@
 export function Post (props) {
-    const {name} = props;
+    const {id, name, removePost} = props;
 
-    return <h2>{name} <button>delete</button></h2>
+    return <h2>{name} <button onClick={() => removePost(id)}>delete</button></h2>
 }
